@@ -1,14 +1,378 @@
+
 import React from 'react';
-import { ArrowRight, ArrowUpRight, Terminal, MapPin, BriefcaseBusiness, CircleDot, Sparkles, Code2, Zap, ChevronRight, Github } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Terminal,
+  MapPin,
+  Zap,
+  Github,
+  BookOpen,
+  Code2,
+  Container as ContainerIcon
+} from 'lucide-react';
+
 import { Link } from 'react-router-dom';
-import { profile, metrics, skills, experiences, projects, posts } from '../data/profile';
-import { Container, Eyebrow, SectionHead, ProjectCard, ButtonLink } from '../components/UI';
-export default function Home(){return <>
-<section className="hero"><div className="hero-glow hero-glow-a"/><div className="hero-glow hero-glow-b"/><Container className="hero-grid"><div className="hero-copy"><div className="availability"><span className="pulse"/> OPEN TO LEARNING & BUILDING</div><div className="hero-kicker">HELLO, WORLD. I'M</div><h1>Rishabh<br/><span>Kumar<span className="dot">.</span></span></h1><div className="hero-role"><span className="role-line"/>{profile.role}<span className="role-sep">/</span> DevOps Explorer</div><p className="hero-description">{profile.headline}<br/><span>From production support to cloud-native engineering — documenting the journey, one deployment at a time.</span></p><div className="hero-actions"><ButtonLink to="/projects">Explore my work <ArrowUpRight size={18}/></ButtonLink><ButtonLink to="/about" secondary>My story <ArrowRight size={18}/></ButtonLink></div><div className="hero-location"><MapPin size={15}/> Based in {profile.location} <span>·</span> Always curious</div></div><div className="hero-visual" aria-label="Decorative developer console"><div className="visual-halo"/><div className="terminal-card"><div className="terminal-top"><div className="window-dots"><i/><i/><i/></div><span>rishabh@devops: ~</span><Terminal size={16}/></div><div className="terminal-content"><p><span className="term-green">➜</span> <span className="term-blue">~</span> whoami</p><p className="term-output">{profile.name}</p><p><span className="term-green">➜</span> <span className="term-blue">~</span> cat mission.txt</p><p className="term-output">Build. Deploy. Monitor.<br/>Learn. Improve. Repeat.</p><p><span className="term-green">➜</span> <span className="term-blue">~</span> kubectl get ambition</p><p className="term-table">NAME <span>STATUS</span></p><p className="term-table">growth <span className="term-green">AlwaysRunning</span></p><p className="cursor-line"><span className="term-green">➜</span> <span className="term-blue">~</span> <span className="cursor"/></p></div></div><div className="floating-chip floating-chip-one"><Zap size={14}/> Always shipping ideas</div><div className="floating-chip floating-chip-two"><span className="pulse"/> Learning in public</div></div></Container><Container><div className="stats-strip">{metrics.map((m,i)=><div key={m.label} className="stat"><div className="stat-value">{m.value}<span>{i===0?' yrs':''}</span></div><div><strong>{m.label}</strong><small>{m.note}</small></div></div>)}</div></Container></section>
-<section className="section" id="about-preview"><Container><div className="intro-grid"><div><Eyebrow>01 / A LITTLE ABOUT ME</Eyebrow><h2 className="display-heading">Curiosity meets<br/><em>real-world operations.</em></h2></div><div className="intro-right"><p>{profile.about}</p><p>I believe the best way to understand infrastructure is to build it, break it safely, and learn how to fix it.</p><Link className="text-link" to="/about">More about my journey <ArrowUpRight size={17}/></Link></div></div></Container></section>
-<section className="section section-panel"><Container><SectionHead kicker="02 / TOOLBOX" title={<>Tools I work with<span className="accent-text">.</span></>} sub="A mix of production operations experience and hands-on cloud-native learning."/><div className="skills-grid">{skills.map((s,i)=><div className="skill-card" key={s.category}><div className="skill-card-index">0{i+1}</div><h3>{s.category}</h3><div className="skill-tags">{s.items.map(item=><span key={item}>{item}</span>)}</div></div>)}</div></Container></section>
-<section className="section"><Container><SectionHead kicker="03 / SELECTED WORK" title={<>Projects & experiments<span className="accent-text">.</span></>} sub="Real learning labs, documented as I build and improve them." link="/projects" linkText="All projects"/><div className="project-grid">{projects.slice(0,2).map(p=><ProjectCard key={p.slug} project={p}/>)}</div></Container></section>
-<section className="section section-panel"><Container><SectionHead kicker="04 / EXPERIENCE" title={<>Where I've worked<span className="accent-text">.</span></>} sub="My journey through banking systems, application reliability and technical operations." link="/experience" linkText="Full experience"/><div className="experience-preview">{experiences.map((e,i)=><Link to="/experience" className="experience-row" key={e.company}><span className="exp-number">0{i+1}</span><div><h3>{e.role}</h3><p>{e.company}</p></div><span className="exp-period">{e.period}</span><ArrowUpRight size={19}/></Link>)}</div></Container></section>
-<section className="section"><Container><SectionHead kicker="05 / FIELD NOTES" title={<>Learning out loud<span className="accent-text">.</span></>} sub="Notes on systems, DevOps and what I'm learning along the way." link="/journal" linkText="Read all notes"/><div className="post-grid">{posts.map(p=><Link key={p.slug} to={`/journal/${p.slug}`} className="post-card"><div className="post-top"><span>{p.category}</span><ArrowUpRight size={18}/></div><h3>{p.title}</h3><p>{p.excerpt}</p><div className="post-date">{p.date} <span>·</span> {p.read}</div></Link>)}</div></Container></section>
-<section className="section"><Container><div className="cta-banner"><div className="cta-dots"/><div className="cta-content"><Eyebrow>LET'S CONNECT</Eyebrow><h2>Have an idea?<br/><span>Let's talk about it.</span></h2><p>Always happy to connect with engineers, learners and people building interesting things.</p><ButtonLink to="/contact">Get in touch <ArrowUpRight size={18}/></ButtonLink></div><div className="cta-shape">✳</div></div></Container></section>
-</>}
+import {
+  profile,
+  metrics,
+  skills,
+  experiences,
+  projects,
+  posts
+} from '../data/profile';
+
+import {
+  Container,
+  Eyebrow,
+  SectionHead,
+  ProjectCard,
+  ButtonLink
+} from '../components/UI';
+
+export default function Home() {
+  return (
+    <>
+      <section className="hero">
+        <div className="hero-glow hero-glow-a" />
+        <div className="hero-glow hero-glow-b" />
+
+        <Container className="hero-grid">
+          <div className="hero-copy">
+            <div className="availability">
+              <span className="pulse" />
+              OPEN TO LEARNING & BUILDING
+            </div>
+
+            <div className="hero-kicker">HELLO, WORLD. I'M</div>
+
+            <h1>
+              Rishabh<br />
+              <span>Kumar<span className="dot">.</span></span>
+            </h1>
+
+            <div className="hero-role">
+              <span className="role-line" />
+              {profile.role}
+              <span className="role-sep">/</span>
+              DevOps Explorer
+            </div>
+
+            <p className="hero-description">
+              {profile.headline}
+              <br />
+              <span>
+                From production support to cloud-native engineering —
+                documenting the journey, one deployment at a time.
+              </span>
+            </p>
+
+            <div className="hero-actions">
+              <ButtonLink to="/projects">
+                Explore my work <ArrowUpRight size={18} />
+              </ButtonLink>
+
+              <ButtonLink to="/about" secondary>
+                My story <ArrowRight size={18} />
+              </ButtonLink>
+            </div>
+
+            <div className="hero-location">
+              <MapPin size={15} />
+              Based in {profile.location}
+              <span>·</span>
+              Always curious
+            </div>
+          </div>
+
+          <div
+            className="hero-visual"
+            aria-label="Decorative developer console"
+          >
+            <div className="visual-halo" />
+
+            <div className="terminal-card">
+              <div className="terminal-top">
+                <div className="window-dots">
+                  <i /><i /><i />
+                </div>
+                <span>rishabh@devops: ~</span>
+                <Terminal size={16} />
+              </div>
+
+              <div className="terminal-content">
+                <p>
+                  <span className="term-green">➜</span>{' '}
+                  <span className="term-blue">~</span> whoami
+                </p>
+
+                <p className="term-output">{profile.name}</p>
+
+                <p>
+                  <span className="term-green">➜</span>{' '}
+                  <span className="term-blue">~</span> cat mission.txt
+                </p>
+
+                <p className="term-output">
+                  Build. Deploy. Monitor.
+                  <br />
+                  Learn. Improve. Repeat.
+                </p>
+
+                <p>
+                  <span className="term-green">➜</span>{' '}
+                  <span className="term-blue">~</span> kubectl get ambition
+                </p>
+
+                <p className="term-table">
+                  NAME <span>STATUS</span>
+                </p>
+
+                <p className="term-table">
+                  growth <span className="term-green">AlwaysRunning</span>
+                </p>
+
+                <p className="cursor-line">
+                  <span className="term-green">➜</span>{' '}
+                  <span className="term-blue">~</span>{' '}
+                  <span className="cursor" />
+                </p>
+              </div>
+            </div>
+
+            <div className="floating-chip floating-chip-one">
+              <Zap size={14} /> Always shipping ideas
+            </div>
+
+            <div className="floating-chip floating-chip-two">
+              <span className="pulse" /> Learning in public
+            </div>
+          </div>
+        </Container>
+
+        <Container>
+          <div className="stats-strip">
+            {metrics.map((m, i) => (
+              <div key={m.label} className="stat">
+                <div className="stat-value">
+                  {m.value}
+                  <span>{i === 0 ? ' yrs' : ''}</span>
+                </div>
+
+                <div>
+                  <strong>{m.label}</strong>
+                  <small>{m.note}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* DEVOPS LEARNING HUB FEATURE CARD */}
+      <section className="section learning-feature-section">
+        <Container>
+          <Link to="/learning-hub" className="home-learning-card">
+            <div className="home-learning-content">
+              <Eyebrow>MY KNOWLEDGE BASE</Eyebrow>
+
+              <h2>
+                DevOps Learning <span>Hub.</span>
+              </h2>
+
+              <p>
+                Explore my technical notes, Linux commands, Docker,
+                Kubernetes, CI/CD pipelines, cloud technologies and
+                practical troubleshooting experiences.
+              </p>
+
+              <span className="home-learning-link">
+                Explore Learning Hub
+                <ArrowUpRight size={19} />
+              </span>
+            </div>
+
+            <div className="home-learning-visual">
+              <div className="learning-visual-icon">
+                <BookOpen size={36} />
+              </div>
+
+              <div className="learning-visual-code">
+                <span>01</span> Learn
+                <br />
+                <span>02</span> Practice
+                <br />
+                <span>03</span> Document
+                <br />
+                <span>04</span> Improve
+              </div>
+            </div>
+          </Link>
+        </Container>
+      </section>
+
+      <section className="section" id="about-preview">
+        <Container>
+          <div className="intro-grid">
+            <div>
+              <Eyebrow>01 / A LITTLE ABOUT ME</Eyebrow>
+              <h2 className="display-heading">
+                Curiosity meets<br />
+                <em>real-world operations.</em>
+              </h2>
+            </div>
+
+            <div className="intro-right">
+              <p>{profile.about}</p>
+              <p>
+                I believe the best way to understand infrastructure is
+                to build it, break it safely, and learn how to fix it.
+              </p>
+
+              <Link className="text-link" to="/about">
+                More about my journey <ArrowUpRight size={17} />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="section section-panel">
+        <Container>
+          <SectionHead
+            kicker="02 / TOOLBOX"
+            title={<>Tools I work with<span className="accent-text">.</span></>}
+            sub="A mix of production operations experience and hands-on cloud-native learning."
+          />
+
+          <div className="skills-grid">
+            {skills.map((s, i) => (
+              <div className="skill-card" key={s.category}>
+                <div className="skill-card-index">0{i + 1}</div>
+                <h3>{s.category}</h3>
+
+                <div className="skill-tags">
+                  {s.items.map(item => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
+        <Container>
+          <SectionHead
+            kicker="03 / SELECTED WORK"
+            title={<>Projects & experiments<span className="accent-text">.</span></>}
+            sub="Real learning labs, documented as I build and improve them."
+            link="/projects"
+            linkText="All projects"
+          />
+
+          <div className="project-grid">
+            {projects.slice(0, 2).map(p => (
+              <ProjectCard key={p.slug} project={p} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section section-panel">
+        <Container>
+          <SectionHead
+            kicker="04 / EXPERIENCE"
+            title={<>Where I've worked<span className="accent-text">.</span></>}
+            sub="My journey through banking systems, application reliability and technical operations."
+            link="/experience"
+            linkText="Full experience"
+          />
+
+          <div className="experience-preview">
+            {experiences.map((e, i) => (
+              <Link
+                to="/experience"
+                className="experience-row"
+                key={e.company}
+              >
+                <span className="exp-number">0{i + 1}</span>
+
+                <div>
+                  <h3>{e.role}</h3>
+                  <p>{e.company}</p>
+                </div>
+
+                <span className="exp-period">{e.period}</span>
+                <ArrowUpRight size={19} />
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
+        <Container>
+          <SectionHead
+            kicker="05 / FIELD NOTES"
+            title={<>Learning out loud<span className="accent-text">.</span></>}
+            sub="Notes on systems, DevOps and what I'm learning along the way."
+            link="/journal"
+            linkText="Read all notes"
+          />
+
+          <div className="post-grid">
+            {posts.map(p => (
+              <Link
+                key={p.slug}
+                to={`/journal/${p.slug}`}
+                className="post-card"
+              >
+                <div className="post-top">
+                  <span>{p.category}</span>
+                  <ArrowUpRight size={18} />
+                </div>
+
+                <h3>{p.title}</h3>
+                <p>{p.excerpt}</p>
+
+                <div className="post-date">
+                  {p.date} <span>·</span> {p.read}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="section">
+        <Container>
+          <div className="cta-banner">
+            <div className="cta-dots" />
+
+            <div className="cta-content">
+              <Eyebrow>LET'S CONNECT</Eyebrow>
+
+              <h2>
+                Have an idea?<br />
+                <span>Let's talk about it.</span>
+              </h2>
+
+              <p>
+                Always happy to connect with engineers, learners
+                and people building interesting things.
+              </p>
+
+              <ButtonLink to="/contact">
+                Get in touch <ArrowUpRight size={18} />
+              </ButtonLink>
+            </div>
+
+            <div className="cta-shape">✳</div>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}
