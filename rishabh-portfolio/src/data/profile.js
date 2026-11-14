@@ -5,10 +5,10 @@ export const profile = {
   role: 'Senior TechOps Engineer',
   headline: 'Operating reliable systems. Building toward DevOps & Cloud.',
   location: 'Noida, India',
-  email: '', // Add your public contact email
-  resumeUrl: '', // e.g. '/resume.pdf' (place file in public/)
-  github: '', // e.g. 'https://github.com/your-username'
-  linkedin: '', // e.g. 'https://linkedin.com/in/your-profile'
+  email: 'krrishab2000@gmail.com', // Add your public contact email
+  resumeUrl: '',
+  github: 'https://github.com/Rishabh84344',
+  linkedin: 'https://www.linkedin.com/in/imrishab/',
   initials: 'RK',
   intro: 'I work at the intersection of production operations, troubleshooting, and modern cloud-native tooling. I enjoy understanding how applications travel from code to reliable services.',
   about: 'My journey started in banking application support, where I worked with production systems, payment workflows, middleware, and incident resolution. Today I work in TechOps and am sharpening my hands-on DevOps skills with Docker, Kubernetes, CI/CD and observability.',
